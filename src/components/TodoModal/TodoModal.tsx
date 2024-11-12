@@ -35,7 +35,13 @@ export const TodoModal: React.FC<Props> = ({ todo, onClose, isLoading }) => {
               Todo #{todo.id}
             </div>
 
-            <button type="button" className="delete" data-cy="modal-close" onClick={onClose} />
+            <button
+              type="button"
+              className="delete"
+              data-cy="modal-close"
+              onClick={onClose}
+              aria-label="Close modal"
+            />
           </header>
 
           <div className="modal-card-body">
@@ -44,7 +50,11 @@ export const TodoModal: React.FC<Props> = ({ todo, onClose, isLoading }) => {
             </p>
 
             <p className="block" data-cy="modal-user">
-              <strong className={todo.completed ? 'has-text-success' : 'has-text-danger'}>
+              <strong
+                className={
+                  todo.completed ? 'has-text-success' : 'has-text-danger'
+                }
+              >
                 {todo.completed ? 'Done' : 'Planned'}
               </strong>
               {' by '}

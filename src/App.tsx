@@ -21,6 +21,7 @@ const App: React.FC = () => {
     const fetchTodos = async () => {
       try {
         const data = await getTodos();
+
         setTodos(data);
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -33,6 +34,10 @@ const App: React.FC = () => {
   }, []);
 
   const handleTodoSelect = (todo: Todo) => {
+    if (!todo.id) {
+      console.error("Todo id is missing");
+      return;
+    }
     setSelectedTodo(todo);
     setSelectedTodoId(todo.id);
   };
@@ -54,12 +59,13 @@ const App: React.FC = () => {
     setQuery('');
   };
 
-  const filteredTodos = todos.filter((todo) => {
+  const filteredTodos = todos.filter(todo => {
     const matchesStatus =
       filter === 'all' ||
       (filter === 'completed' && todo.completed) ||
       (filter === 'active' && !todo.completed);
     const matchesQuery = todo.title.toLowerCase().includes(query.toLowerCase());
+
     return matchesStatus && matchesQuery;
   });
 
@@ -84,7 +90,11 @@ const App: React.FC = () => {
               {loading ? (
                 <Loader />
               ) : (
-                <TodoList todos={filteredTodos} onSelect={handleTodoSelect} selectedTodoId={selectedTodoId} />
+                <TodoList
+                  todos={filteredTodos}
+                  onSelect={handleTodoSelect}
+                  selectedTodoId={selectedTodoId}
+                />
               )}
             </div>
           </div>
@@ -103,5 +113,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-

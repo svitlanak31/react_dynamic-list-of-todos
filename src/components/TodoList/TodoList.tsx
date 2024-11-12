@@ -1,5 +1,6 @@
 import React from 'react';
 import { Todo } from '../../types/Todo';
+import classNames from 'classnames';
 
 interface Props {
   todos: Todo[];
@@ -7,7 +8,11 @@ interface Props {
   selectedTodoId: number | null; // Додано пропс для вибраного Todo
 }
 
-export const TodoList: React.FC<Props> = ({ todos, onSelect, selectedTodoId }) => {
+export const TodoList: React.FC<Props> = ({
+  todos,
+  onSelect,
+  selectedTodoId,
+}) => {
   const handleClick = (todo: Todo) => {
     onSelect(todo); // Вибір Todo при натисканні
   };
@@ -42,7 +47,11 @@ export const TodoList: React.FC<Props> = ({ todos, onSelect, selectedTodoId }) =
               )}
             </td>
             <td className="is-vcentered is-expanded">
-              <p className={todo.completed ? 'has-text-success' : 'has-text-danger'}>
+              <p
+                className={
+                  todo.completed ? 'has-text-success' : 'has-text-danger'
+                }
+              >
                 {todo.title}
               </p>
             </td>
@@ -52,11 +61,15 @@ export const TodoList: React.FC<Props> = ({ todos, onSelect, selectedTodoId }) =
                 className="button"
                 type="button"
                 data-cy="selectButton"
+                aria-label={`Select task ${todo.title}`}
               >
                 <span className="icon">
-                  <i
-                    className={selectedTodoId === todo.id ? "far fa-eye-slash" : "far fa-eye"}
-                  />
+                <i
+                  className={classNames({
+                    'far fa-eye': selectedTodoId !== todo.id,
+                    'far fa-eye-slash': selectedTodoId === todo.id
+                  })}
+                />
                 </span>
               </button>
             </td>

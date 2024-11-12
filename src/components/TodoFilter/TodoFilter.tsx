@@ -8,7 +8,13 @@ interface Props {
   onClearSearch: () => void;
 }
 
-export const TodoFilter: React.FC<Props> = ({ filter, query, onFilterChange, onSearchChange, onClearSearch }) => {
+export const TodoFilter: React.FC<Props> = ({
+  filter,
+  query,
+  onFilterChange,
+  onSearchChange,
+  onClearSearch,
+}) => {
   return (
     <form className="field has-addons">
       <p className="control">
@@ -17,6 +23,7 @@ export const TodoFilter: React.FC<Props> = ({ filter, query, onFilterChange, onS
             value={filter}
             onChange={e => onFilterChange(e.target.value)}
             data-cy="statusSelect"
+            aria-label="Filter tasks by status"
           >
             <option value="all">All</option>
             <option value="active">Active</option>
@@ -33,6 +40,7 @@ export const TodoFilter: React.FC<Props> = ({ filter, query, onFilterChange, onS
           value={query}
           onChange={onSearchChange}
           data-cy="searchInput"
+          aria-label="Search for a task"
         />
         <span className="icon is-left">
           <i className="fas fa-magnifying-glass" />
@@ -45,6 +53,7 @@ export const TodoFilter: React.FC<Props> = ({ filter, query, onFilterChange, onS
               onClick={onClearSearch}
               className="delete"
               data-cy="clearSearchButton"
+              aria-label="Clear search input"
             />
           </span>
         )}
@@ -52,4 +61,3 @@ export const TodoFilter: React.FC<Props> = ({ filter, query, onFilterChange, onS
     </form>
   );
 };
-
